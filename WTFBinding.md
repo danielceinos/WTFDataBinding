@@ -1,3 +1,5 @@
+# WTF is DataBinding
+
 Databinding es una biblioteca de vinculación de datos entre nuestro codigo nativo y nuestras vistas declaradas en XML.
 
 Un poco de historia, la forma nativa de acceder a nuestras vistas desde nuestro codigo es mediante el tedioso “findViewById”, provocandonos escribir hasta la saciedad esta sentencia para acceder a nuestras vistras para setear un click listener o cambiar un texto.
@@ -31,14 +33,17 @@ public void titleClicked(View view) {
 
 ```
 
-Mediante esta lireria conseguiamos un poco menos de boilerplate y un codigo más limpio.
-Hasta que Google en el 2015 liberó su propia libreria de databinding para android.
+Con el uso de ButterKnife conseguiamos un poco menos de boilerplate y un codigo más limpio,
+pero tenemos que seguir declarando las vistas como variables.
+En el 2015 Google liberó su propia libreria de databinding para android, la cual nos permite excribir expresiones directamente en el xml para realizar ciertas logicas en la vista como mostrar un determinado texto en un TextView, hacer que al pulsar en un botón se ejecute un determinado método o mostrar/ocutar una vista.
+
+Y de esta forma podemos simplificar las cosas hasta este nivel:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="beer" type="***.Beer"/>
+        <variable name="beer" type="your.package.Beer"/>
     </data>
     <android.support.constraint.ConstraintLayout
             ...>
@@ -58,11 +63,12 @@ Hasta que Google en el 2015 liberó su propia libreria de databinding para andro
     </android.support.constraint.ConstraintLayout>
 
 ```
-INSERTE GIF DE BLOW MIND
 
-Como funciona?
+![](blow_mind.gif)
 
-Para habilitarlo tan solo tendremos que añadir databinding en el build.gradle:
+## ¿Cómo funciona?
+
+Para habilitarlo tan solo tendremos que añadir DataBinding en el build.gradle:
 
 ```
 android {
@@ -72,11 +78,10 @@ android {
     }
 }
 ```
+Debemos añadir la etiquieta `<layout>` englobando a toda nuestra vista. Por cada xml que incluya la etiqueta `<layout>` se generara una clase con el nombre del xml y el sufijo "Binding". Ex: `main_activity.xml` --> `MainActivityBinding`.
+Desde esta clase tendremos acceso a todas las vistas declaradas en el xml así como los metodos para vincular datos, si hemos declarado alguno en la vista.
 
-Por cada xml que incluya la etiqueta ```<layout></layout>``` se generara una clase con el nombre del xml y el sufijo "Binding". Ex: `main_activity.xml` --> `MainActivityBinding`.
-Desde esta clase tendremos acceso a todas las variables declaradas en el xml asi como los metodos para vincular datos si hemos declarado algunos en la vista.
-
-Para obtener esta clase tenemos varias opciones en funcion de que layout estemos intentando vincular.
+Podemos obtener nuestra clase de binding mediante:
 
 ```kotlin
 // En vez de usar el setContentView en el onCreate de una activity
@@ -88,19 +93,27 @@ val binding: ItemBeerBinding = DataBindingUtil.inflate(layoutInflater, R.layout.
 
 ```
 
-Desde aqui ya tendremos accesible todos las vistas declaradas en el xml.
+Una vez obtenido nuestro Binding ya tendremos accesible todos las vistas declaradas en el xml desde él:
 
 ```kotlin
 val title: TextView = binding.titleTv
 ```
 
-para vincular un objeto a la vista:
+En el xml podemos añadir la etiqueta `<data>` para poder vincular variables, mediante la etiqueta `<variable>`, dentro del xml. Esta variable tendrá dos parametros: 
+__name__, que será el que usaremos para acceder a la variable desde el xml, y el __type__, que será la clase de la que es nuestra variable.
+
+```xml
+<data>
+	 <variable name="beer" type="your.package.Beer"/>
+</data>
+```
+y para vincular un objeto a la vista:
 
 ```kotlin
 binding.beer = User("Black Cat", "British Ale")
 ```
 
-Manejo de eventos:
+## Manejo de eventos
 
 En el xml podemos vincular los eventos de las vistas, tales como `onClickListener`,  con un objeto sobre el que invocar uno de sus metodos, esta invocación puede ser mediante la referencia al metodo o una lambda
 
@@ -133,7 +146,7 @@ Y la forma de invocarla desde el xml será:
 
 ```
 
-Binding adapters
+## Binding adapters
 
 La libreria de DataBinding nos permite la creacion de metodos referenciables desde el xml para realizar una determinada logica.
 Por ejemplo podemos crear un binding adapter para cargar directamente una imagen desde una url con glide:
