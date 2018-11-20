@@ -138,7 +138,7 @@ Binding adapters
 La libreria de DataBinding nos permite la creacion de metodos referenciables desde el xml para realizar una determinada logica.
 Por ejemplo podemos crear un binding adapter para cargar directamente una imagen desde una url con glide:
 
-```kotln
+```kotlin
 @BindingAdapter("imageUrl")
 fun setUrlImage(imageView: ImageView, url: String?) {
     GlideApp.with(imageView.context)
