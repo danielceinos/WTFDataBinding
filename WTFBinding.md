@@ -173,4 +173,11 @@ Ex:
 @BindingAdapter("text", "color", requireAll = false)
 fun setTextWithColor(textView: TextView, text: String?, color: Int?) { ... }
 ```
+___
+
+Puedes ver el ejemplo que he ido ilustrando aqui:
+
+https://github.com/danielceinos/BeerDataBindingExample
+
+
 
