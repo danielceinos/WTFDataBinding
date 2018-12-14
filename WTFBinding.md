@@ -4,7 +4,7 @@ Buenos días o noches, hoy os traigo una breve explicación sobre que es "__data
 
 --
 
-_Data binding_ es una biblioteca de vinculación de datos entre nuestro código nativo y nuestras vistas declaradas mediante XML. Puedes encontrar toda la documentación oficial aquí: [https://developer.android.com/topic/libraries/data-binding/?hl=es-419](https://developer.android.com/topic/libraries/data-binding).
+_Data binding_ es una biblioteca de vinculación de datos entre nuestro código nativo y nuestras vistas declaradas mediante _xml_. Puedes encontrar toda la documentación oficial aquí: [https://developer.android.com/topic/libraries/data-binding/?hl=es-419](https://developer.android.com/topic/libraries/data-binding).
 
 Antes de explicarte porqué deberías añadir _data binding_ a tú proyecto, pero antes comencemos con un poco de historia. La forma nativa que nos brinda Android para acceder a nuestras vistas desde nuestro código es mediante el tedioso “findViewById”. Haciendo que tengamos que escribir esta sentencia para acceder a nuestras vistas ya sea para asignar _listener o cambiar un texto.
  
@@ -71,7 +71,7 @@ Y de esta forma podemos simplificar las cosas hasta este nivel:
 
 ## ¿Nos merece la pena usarlo?
 
-Actualmente estamos trabajando en una aplicación multimarca, donde nuestro objetivo es la mayor reutilización de código posible. Pero a la hora de afrontar un cambio de apariencia te das cuenta de que gran parte de la lógica de vista esta en nuestras activitys y fragments. Esto nos lleva a obligarnos a tener que crear una nueva activity o fragment para cada _flavor_ del proyecto. Con _data binding_ movemos esta logica a los _xml_, los cuales si son específicos de cada _flavor_.
+Actualmente nos encontramos trabajando en una aplicación multimarca, donde nuestro objetivo es la mayor reutilización de código posible ambiando únicamente la parte visual de la aplicación. Pero a la hora de afrontar este cambio de apariencia nos hemos encontrado con que gran parte de la lógica de visualización esta acoplada a nuestras activitys y fragments. Esto nos lleva a tener que crear una nueva activity o fragment para cada _flavor_ del proyecto cada vez que la lógica de vista es diferente. Con _data binding_ movemos esta lógica a los _xml_, los cuales si son específicos de cada _flavor_.
 
 _TL;DR_: En nuestro caso si.
 
