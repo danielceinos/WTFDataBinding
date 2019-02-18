@@ -1,6 +1,6 @@
 # WTF is DataBinding
 
-Good morning (or nights)!. Today I bring a brief explanation of what is "__Data Binding__", why I think you should use it and how it changed my daily lify. My name is Daniel and I currently belong to the development Department of Apps MásMovil. We have recently incorporated _data binding_ into our Apps Yoigo and MásMovil, streamlining the process of layout of the views.
+Good morning (or nights)!. Today I bring a brief explanation of what is "__Data Binding__", why I think you should use it and how it changed my daily life. My name is Daniel and I currently belong to the development Department of Apps MásMovil. We have recently incorporated _data binding_ into our Apps Yoigo and MásMovil, streamlining the process of layout of the views.
 
 --
 
