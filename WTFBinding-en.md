@@ -1,43 +1,41 @@
 # WTF is DataBinding
 
-Good morning (or nights)!. Today I bring a brief explanation of what is "__Data Binding__", why I think you should use it and how it changed my daily life. My name is Daniel and I currently belong to the development Department of Apps MásMovil. We have recently incorporated _data binding_ into our Apps Yoigo and MásMovil, streamlining the process of layout of the views.
+Good morning (or evening)! Today I bring a brief explanation of what __"Data Binding"__ is, why I think you should use it and how it changed my daily life. My name is Daniel and I currently belong to the Apps development team at MásMovil Group. We have recently incorporated _data binding_ into our Yoigo and MásMovil apps, streamlining the process of laying out the views.
 
 --
 
-_Data Binding_ is a data link library between our native code and our views declared by _xml_. You can find all the official documentation here: [https://developer.android.com/topic/libraries/data-binding/?hl=en-419] (https://developer.android.com/topic/libraries/data-binding).
+_Data Binding_ is a data link library between our native code and our views declared in _xml_. You can find all the official documentation here: [https://developer.android.com/topic/libraries/data-binding/?hl=en-419] (https://developer.android.com/topic/libraries/data-binding).
 
-Before explaining why you should add _data binding_ to your project, let's start with a little bit of history. The native way that Android gives us to access our views from our native Java or Kotlin code is through the tedious `findViewById`. Having to write this statement to access our views, either to assign listener or change a text.
+Before explaining why you should add data binding to your project, let's start with a little bit of history. The native way that Android gives us access to our views from our native Java or Kotlin code is through the tedious `findViewById`, having to write this statement to access our views, either to assign listener or change a text.
  
 ```kotlin
-	findViewById <TextView> ().text = "Text"
+findViewById<TextView>().text = "Text"
 ```
 
-Does it sound familiar the case of having a _ViewHolder_ of a _RecyclerView_ with 10 lines full of `findViewById`? You're not alone! Luckily this has an easy solution.
+Does the case of having a ViewHolder of a RecyclerView with 10 lines full of `findViewById` sound familiar to you? You're not alone! Luckily this has an easy solution.
 
-My first experience with the _ data binding began when I discovered __ButterKnife__ (more info [here](http://jakewharton.github.io/butterknife/)).
+My first experience with  _data binding_ began when I discovered __ButterKnife__ (more info [here](http://jakewharton.github.io/butterknife/)).
 
 _ButterKnife_ was one of the first _data binding_ libraries that emerged to make our lives a bit easier. Because we could refer to our views in a much more comfortable way from the code:
 
 ```kotlin
-	@BindView (R.id.title) TextView title;
-
+@BindView (R.id.title) TextView title;
 // ...
-
-	title.text = "Title"
+title.text = "Title"
 ```
 
-Or to implement in a simple way a `onClickListener`:
+Or to implement in a simple way an `onClickListener`:
 
 ```kotlin
-	@OnClick (R.id.title)
-	public void titleClicked (View view) {
-  		// Any logic
-	}
+@OnClick (R.id.title)
+public void titleClicked (View view) {
+	// Any logic
+}
 ```
 
-With the use of _ButterKnife_ we got a little less than _boilerplate_ and a cleaner code, but still we had to declaring the views as variables in our class.
+With the use of _ButterKnife_ we got a little less than boilerplate and a cleaner code, but still we had to declare the views as variables in our class.
 
-At the beginning of 2017 came to my hands a new library of _data binding_ developed by Google. Google release its own library of _data binding_ for Android, which allows us to write expressions directly in the _XML_ to make certain view-related logic like show a certain text in a _TextView_, making that just pressing a button it executes a certain method, or even show/hide a view.
+At the beginning of 2017 came to my hands a new library of data binding developed by Google. Google released its own data binding library for Android, which allows us to write expressions directly in the _XML_ to make certain view-related logic like show a certain text in a _TextView_, making that by just pressing a button it executes a certain method, or even show/hide a view.
 
 This way we can simplify things up to this level:
 
@@ -70,13 +68,13 @@ This way we can simplify things up to this level:
 
 ## Is it worth using Data Binding?
 
-Currently at MásMovil we are working on a multibrand application and our goal is the greatest reuse of code possible by changing only the visual part of the application. But when we have faced with this change of appearance the results are that much of the visualization logic is coupled to our _activities_ and _fragments_. This leads us to have to create a new activity or a fragment for each _flavor_ of the project every time the view logic is different. With _data binding_ We move this logic to _XML_, which yes are indeed to each _flavor_.
+Currently at MásMovil we are working on a multibrand application and our goal is to reuse code as much as possible by changing only the visual part of the application. But when we have faced with this change of appearance the results are that much of the visualization logic is coupled to our activities and fragments. This leads us to have to create a new _activity_ or a _fragment_ for each flavor of the project every time the view logic is different. With _data binding_ We move this logic to the _XML_ file, which yes are indeed to each flavor.
 
 ## How can I add it to my project?
 
-To enable it, is as simple as adding this into your app Build.Grade:
+Enable it is as simple as adding this into your app Build.Grade:
 
-```
+```groovy
 android {
     dataBinding {
         enabled = true
@@ -86,7 +84,7 @@ android {
 
 ## Okay, but how do I use it?
 
-The number of features provided by the Library of _data binding_ is extensive. In this article I will try the most basic and I think that just adding them makes the change worthy.
+The number of features provided by the _data binding_ library is extensive. In this article I will show the most basic concepts and I think that by just adding them makes the change worthy.
 
 The _data binding_'s starter pack consists of:
 
@@ -97,24 +95,24 @@ The _data binding_'s starter pack consists of:
 
 ### View Reference
 
-The necessary to use _ data binding in a given view is to add the label `<layout>` in XML in which we want to use it. For each XML that includes the `<layout>` tag, a class is generated with the name of the _XML_ and the suffix "Binding". Ex: ` main_activity. xml` --> `MainActivityBinding `.
+The necessary to use _ data binding in a given view is to add the label `<layout>` in XML in which we want to use it. For each _XML_ that includes the `<layout>` tag, a class is generated with the name of the _XML_ and the suffix "Binding". Ex: ` main_activity.xml` --> `MainActivityBinding`.
 From this class we will have access to all the views declared in the _XML_ as well as the methods to link data, if we have declared one in the view.
 
 We can get our binding class by:
 
 ```kotlin
 // Instead of using the setContentView in the onCreate of an activity
-	val binding: MainActivityBinding = DataBindingUtil.setContentView (this, R.layout.main_activity);
+val binding: MainActivityBinding = DataBindingUtil.setContentView (this, R.layout.main_activity);
 
 // Or we can inflate a view using
-	val binding: ItemBeerBinding = ItemBeerBinding.inflate (getLayoutInflater());
-	val binding: ItemBeerBinding = DataBindingUtil.inflate (layoutInflater, R.layout.detail_fragment, viewGroup, false);
+val binding: ItemBeerBinding = ItemBeerBinding.inflate (getLayoutInflater());
+val binding: ItemBeerBinding = DataBindingUtil.inflate (layoutInflater, R.layout.detail_fragment, viewGroup, false);
 ```
 
 Once we have obtained our Binding object we will have access to all declared views in the _XML_ from it:
 
 ```kotlin
-	val title: TextView = binding.titleTv
+val title: TextView = binding.titleTv
 ```
 
 ### Data Link
@@ -125,13 +123,13 @@ __name__, which will be used to access the variable from the _XML_, and the __ty
 
 ```xml
 <data>
-	 < Variable name = "Beer" type = "your. Package. Beer"/>
+	<variable name="beer" type="your.package.beer"/>
 </data>
 ```
 and to link an object to the view:
 
 ```kotlin
-	binding.beer = User("Black Cat", "British Ale")
+binding.beer = Beer("Black Cat", "British Ale")
 ```
 
 Once we have linked our object, we will be able to access this in a view of the _XML_ using the syntax `@{}`.
@@ -150,9 +148,9 @@ In the _XML_ we can link the events of the views, such as `OnClickListener`, wit
 We can pass it to the view an implementation of the interface:
 
 ```kotlin
-	interface OnClick {
+interface OnClick {
     	fun clicked (view: View)
-	}
+}
 ```
 And how to invoke this method from the _XML_ will be:
 
@@ -205,23 +203,22 @@ In a binding adapter we can receive multiple parameters. We can also decide whet
 Former:
 
 ```kotlin
-	@BindingAdapter("text", "color", requireAll = False)
-	fun setTextWithColor(textView: TextView, text: String?, color: Int?) { ... }
+@BindingAdapter("text", "color", requireAll = False)
+fun setTextWithColor(textView: TextView, text: String?, color: Int?) { ... }
 ```
 
 
 ## TL;DR And my conclusion 
 
-Thanks to the link of data directly in our _XML_ we can release from enough logic to our activities or fragments, uncoupling the logic of an activity or fragment of the logic of view.
+Thanks to link data directly to our _XML_ we can lightweight our application by decoupling the logic of an activity or fragment from the view logic.
 
-We should leave behind the `findViewById` or Kotlin synthetics. Which were giving us problems when working with several flavors.
+We should leave behind the `findViewById` or Kotlin synthetics ([they aren't a good practice anymore](https://android-review.googlesource.com/c/platform/frameworks/support/+/882241) and they are gonna be deprecated). Which were giving us problems when working with several flavors.
 
-In our case it has been quite useful when it comes to reuse views between different flavors of our application. Undocking The view logic of activities and fragments taking it to the _XML_, being able to modify this logic without having to create an activity or a fragment specific for each flavor.
+In our case it has been quite useful when it comes to reuse views between different flavors of our application. Decoupling the view logic of _activities_ and _fragments_ by moving it to the _XML_, allow us to modify this logic without having to create an activity or a fragment specific for each flavor.
 
-And there is much more...
-Things like the use of observable, LiveData, Two-way binding,etc. But that's another story, and sooner or later I will write about them!
+And there is much more… Things like the use of observable, LiveData, Two-way binding, etc. But that's another story, and sooner or later I will write about them!
 
-I hop you found this article useful, and don't hesitate contact me for any question or advice!
+I hope you have found this article useful, and don't hesitate to contact me for any question or advice!
 
 ___
 
